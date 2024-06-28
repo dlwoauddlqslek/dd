@@ -13,9 +13,9 @@ public class MemberDto { // 이동객체
     private int mno;
 
     // 2. 생성자 : 기본생성자,풀생성자
-    public MemberDto(){}
-    public MemberDto(String mid, String mpwd, String mname, String mphone, String mdate, int mno) {
-        this.mid = mid;
+    public MemberDto(){} // 기본생성자
+    public MemberDto(String mid, String mpwd, String mname, String mphone, String mdate, int mno) { // 풀생성자
+        this.mid = mid; // this는 멤버변수와 매개변수 구별위해 사용
         this.mpwd = mpwd;
         this.mname = mname;
         this.mphone = mphone;
@@ -23,7 +23,7 @@ public class MemberDto { // 이동객체
         this.mno = mno;
     }
     // --- 회원가입용 생성자
-    public MemberDto(String mid, String mpwd, String mname, String mphone) {
+    public MemberDto(String mid, String mpwd, String mname, String mphone) { // 오버로딩은 매개변수 타입,순서,개수가 달라야 가능
         this.mid = mid;
         this.mpwd = mpwd;
         this.mname = mname;
@@ -31,7 +31,7 @@ public class MemberDto { // 이동객체
     }
     // 3. 메소드 : 1. getter/setter 2.toString()
 
-    @Override
+    @Override // 함수 재정의 최우선으로 사용됨, 주소값 대신 진짜값을 알기위해 사용
     public String toString() {
         return "MemberDto{" +
                 "mid='" + mid + '\'' +
@@ -42,7 +42,7 @@ public class MemberDto { // 이동객체
                 ", mno=" + mno +
                 '}';
     }
-
+    // 멤버변수들이 private 상태이기 때문에 접근하기 위해 getter,setter 함수 사용, get은 멤버변수값을 가져오고 set은 멤버변수값에 새로운 값 대입
     public String getMid() {
         return mid;
     }
