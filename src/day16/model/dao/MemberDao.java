@@ -31,7 +31,7 @@ public class MemberDao { // class s
             // 2. SQL 기재한다
             ps = conn.prepareStatement(sql);
             // 2. SQL 문법의 ?(와일드카드) 매개변수 기재한다
-            ps.setString(1, memberDto.getMid() );        // .setString( ?순서번호 , 값또는변수명 )
+            ps.setString(1, memberDto.getMid() );       // .setString( ?순서번호 , 값또는변수명 )
             ps.setString(2, memberDto.getMpwd() );
             ps.setString(3, memberDto.getMname() );
             ps.setString(4, memberDto.getMphone());
