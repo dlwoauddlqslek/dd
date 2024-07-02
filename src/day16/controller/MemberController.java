@@ -19,6 +19,10 @@ public class MemberController { // class s
     public int loginMno = 0; // public 상태로 초기값이 0인 int타입 loginMno 변수 생성
     // 2-2 : 로그아웃 함수
     public void logout(){ loginMno = 0;  } // 반환값이 없고 loginMno를 0으로 만드는 logout 메소드 생성
+    // 2-3 : 현재 로그인 상태 반환 함수
+    public boolean loginState(){
+        return loginMno==0?false:true;
+    }
     // 2. 로그인 함수
     public boolean login( MemberDto memberDto ){// boolean 반환타입 memberDto를 매개변수로 받는 login 메소드생성
         loginMno = MemberDao.mdao.login( memberDto ); // loginMno에 MemberDao클래스 memberDto를 매개변수로 받는 login 반환값 대입

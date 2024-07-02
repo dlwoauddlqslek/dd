@@ -30,6 +30,18 @@ create table board(         # 글제목,글내용,글작성일,글작성자,글�
 );
 select * from board;
 
+#게시물 출력시 mno가 아닌 mid 출력
+	#1. 두 테이블을 출력한다.
+select * from board, member;
+	#2. 두 ㅌ이블의 관계 기준으로 (내부교집합)조인한다.
+select * from board, member where board.mno=member.mno;
+select * from board natural join member;
+select * from board join member on board.mno=member.mno;
+select * from board join member using(mno);
+select * from board inner join member on board.mno=member.mno;
+	#테이블명을 간소화 할 때
+select * from board b inner join member m on b.mno=m.mno;
+
 # 3. 댓글테이블 
 drop table if exists reply;
 create table reply(         # 댓글내용, 댓글작성일 , 댓글작성자
@@ -42,7 +54,12 @@ create table reply(         # 댓글내용, 댓글작성일 , 댓글작성자
     foreign key( mno ) references member(mno) on delete cascade on update cascade ,
     foreign key( bno ) references board(bno) on delete cascade on update cascade
 );
+# 댓글 출력
 select * from reply;
+select * from reply r inner join member m on r.mno=m.mno;
+#조건
+select * from reply r inner join member m on r.mno=m.mno where r.bno=1;
+
 # ERR 다이어그램 확인 
 # 샘플 데이터 등록 
 # 회원 5명 
@@ -96,6 +113,24 @@ update member set mname = '유재석' where mno = 0;
 update member set mname = '유재석' , mphone = '010-9999-9999' where mno = 0;
 # JDBC SQL : update member set mname = ? , mphone = ? where mno = ?;
 
+#조회
+# 1. 전체 조회
+select * from board;
+# 2. 개별 조회
+select * from board where bno=3; #3번 게시물 개별 조회
+
+#삭제
+delete from board where bno=0; #0번 게시물을 삭제
+delete from board where bno=0 and mno=0; #작성자번호가 0이면서 게시물번호가 0인 게시물/레코드 삭제
+
+#댓글 출력/조
+select * from reply; #모든 댓글 출력
+select * from reply where mno=1; #회원번호가 1인 회원이 작성한 댓글
+select * from reply where bno=1; #게시물번호가 1인 게시물의 작성된 댓글
+
+#조회수 증가 처리, 조회수 1증가, 기존 필드값을 변경, update
+update board set bview =1;
+update board set bview=bview+1 where bno=1;
 
 
 

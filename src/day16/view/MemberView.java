@@ -8,7 +8,11 @@ import java.util.Scanner;                // 스캐너 클래스 호출
 
 public class MemberView { // class s
     // - 해당 클래스의 함수들을 다른 클래스에서 호출 할수 있도록 static변수에 해당 객체 만들기
+    // - 멤버변수는 객체 마다 할당, 메소드는 객체마다 실행을 하지만 코드는 공유-
+    // - 전역객체 -> 모든곳에서 호출 가능한 객체1개
+    // - 싱글톤: 생성자에 private, 프로그램내 전역으로 하나의 객체를 생성
     public static MemberView mView = new MemberView(); // public static 상태로 MemberView 클래스를 이용해 mView 멤버변수 객체 생성
+    private MemberView(){} // 생성자 private -> 다른 클래스에서 new 를 못한다(객체1개)
     // 멤버변수 : 입력객체
     Scanner scan = new Scanner(System.in); // 입력값 받기 위해 scan 변수 생성
     // 0. 초기화면 함수
