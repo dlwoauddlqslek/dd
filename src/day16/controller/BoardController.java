@@ -58,4 +58,8 @@ public class BoardController {
         int mno=MemberController.mcontrol.loginMno;
         return BoardDao.getInstance().rWrite(bno,mno,rcontent);
     }
+
+    public ArrayList<BoardDto> search(String keyWord){
+        return BoardDao.getInstance().search(keyWord);
+    }
 }

@@ -64,9 +64,10 @@ public class BoardView { // class s
         result.forEach(dto ->{
             System.out.printf("%2d\t%2d\t%10s\t%10s\t%s\t%s \n",dto.getBno(),dto.getBview(),dto.getBdate(),dto.getMid(),dto.getBtitle(),dto.getBcontent());
         });
-        System.out.print(" 0.글쓰기 1~:개별글조회: "); int ch =scan.nextInt();
+        System.out.print("-1.제목검색 0.글쓰기 1~:개별글조회: "); int ch =scan.nextInt();
         if(ch==0){bWrite();}
         else if(ch>=1){bView(ch);}
+        else if(ch==-1){search();}
     }
 
     // 5. 게시물 쓰기 함수
@@ -151,6 +152,16 @@ public class BoardView { // class s
             System.out.println("댓글 입력 성공");
         }
         else{System.out.println("댓글 입력 실패");}
+    }
+
+    public void search(){
+        scan.nextLine();
+        System.out.print("제목 입력: ");
+        String keyWord=scan.nextLine();
+        ArrayList<BoardDto> result=BoardController.getInstance().search(keyWord);
+        result.forEach(boardDto -> {
+            System.out.println(boardDto.getBtitle()+" "+boardDto.getBcontent()+" "+boardDto.getBdate()+" "+boardDto.getMno()+" "+boardDto.getBno()+" "+boardDto.getBview());
+        });
     }
 } // class end
 

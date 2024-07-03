@@ -35,7 +35,7 @@ public class BoardDao {
         // --여러개 DTO 담을 리스트 선언
         ArrayList<BoardDto> list=new ArrayList<>();
         try{
-            String sql="select * from board inner join member on board.mno=member.mno";
+            String sql="select * from board  inner join member on board.mno=member.mno order by bdate desc;";
             ps=conn.prepareStatement(sql);
             rs=ps.executeQuery();
             while(rs.next()){
@@ -170,7 +170,7 @@ public class BoardDao {
     // 조회수 증가 처리
     public boolean viewIncrease(int bno){
         try{
-            String sql="update board set bview=bview+1 where bno=?";
+            String sql="update board set bview=bview+1 where bno=?;";
             ps=conn.prepareStatement(sql);
             ps.setInt(1,bno);
             int count=ps.executeUpdate();
@@ -179,4 +179,27 @@ public class BoardDao {
         return false;
     }
 
+    public ArrayList<BoardDto> search(String keyWord){
+        ArrayList<BoardDto> list=new ArrayList<>();
+        try{
+            //String sql = "select * from board where btitle like '%제%'; ";         [ o ]
+            //String sql = "select * from board where btitle like '%?%'; ";         [ x ?파라미터 가 인식불가능 ]
+            // String sql = "select * from board where btitle like ?; ";            [ ? -> "%"+keyWord+"%" ] O
+            // String sql = "select * from board where btitle like '%"+kewWord+"%' "; [ 연결연산자 ] O
+            // String sql = "select * from board where bview like %?%";             [ x ]
+            // String sql = "select * from board where bview like %3%";             [ x ]
+            String sql="select * from board where btitle like CONCAT('%', ? '%');";
+            //sql 제공 하는 CONCAT('문자열','문자열','문자열') 문자열 연결 함수
+            ps=conn.prepareStatement(sql);
+//            ps.setString(1,"%"+keyWord+"%");
+            ps.setString(1,keyWord);
+            rs=ps.executeQuery();
+            while(rs.next()){
+                BoardDto boardDto=new BoardDto(rs.getString(1), rs.getString(2),rs.getString(3),rs.getInt(4),rs.getInt(5),rs.getInt(6) );
+                list.add(boardDto);
+            }
+
+        }catch (Exception e){System.out.println(e);}
+        return list;
+    }
 }
