@@ -132,6 +132,8 @@ select * from reply where bno=1; #게시물번호가 1인 게시물의 작성된
 update board set bview =1;
 update board set bview=bview+1 where bno=1;
 
+select * from board  inner join member on board.mno=member.mno order by bdate desc;
+
 
 
 
