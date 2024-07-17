@@ -1,25 +1,25 @@
 package day09.step1;
 
 public class Taxi {
-  int taxiNumber;
-  int passengerCount;
-  int money;
+    String company;
+    int passengerCount;
+    int money;
 
-  public Taxi(int taxiNumber) {
-    this.taxiNumber = taxiNumber;
-  }
+    public Taxi(String company) {
+        this.company = company;
+    }
 
-  public void take(int money){
-    this.money +=money;
-    passengerCount++;
-  }
+    public void take(int money){
+        this.money += money;
+        passengerCount++;
+    }
 
-  @Override
-  public String toString() {
-    return "Taxi{" +
-            "taxiNumber=" + taxiNumber +
-            ", passengerCount=" + passengerCount +
-            ", money=" + money +
-            '}';
-  }
+    @Override
+    public String toString() {
+        return "Taxi{" +
+                "company='" + company + '\'' +
+                ", passengerCount=" + passengerCount +
+                ", money=" + money +
+                '}';
+    }
 }
