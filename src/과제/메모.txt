@@ -1,0 +1,103 @@
+음식 입력(DB있는음식)
+음식명을 조건으로 DB조회
+'먹은음식레코드'에 음식코드와 멤버코드 저장
+현재날짜와 기록날짜가 같은 먹은음식레코드를 검색 	
+로그인한 회원의 '먹은음식레코드'에서 음식코드를 불러와 음식 칼로리값들 가져오기
+트루값 리턴
+
+음식명으로 음식코드 찾고, 음식코드와 멤버코드 등록
+
+2260 2340
+
+레코드의 날짜와 오늘날짜가 같은 레코드들만 차감,증가
+sql에서 가져온값 자바 로컬데이트로 만들고 자바에서 현재 로컬데이트와 비교
+자바에서 "2024-07-02 08:40:15"와 같은 문자열을 LocalDate 타입으로 변경하려면 몇 가지 단계가 필요합니다. 주어진 문자열은 시간까지 포함하고 있으므로 LocalDate만으로는 충분하지 않습니다. LocalDateTime으로 변환한 다음 필요에 따라 LocalDate로 추출할 수 있습니다. 다음은 변환하는 방법입니다:
+
+문자열을 LocalDateTime으로 파싱: 주어진 문자열을 LocalDateTime 객체로 파싱합니다.
+LocalDateTime에서 LocalDate 추출: LocalDateTime 객체에서 toLocalDate() 메서드를 사용하여 날짜 부분만 추출합니다.
+아래는 이를 수행하는 예제 코드입니다:
+
+java
+코드 복사
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+public class Main {
+    public static void main(String[] args) {
+        // 주어진 문자열
+        String dateString = "2024-07-02 08:40:15";
+
+        // DateTimeFormatter를 사용하여 문자열을 LocalDateTime으로 파싱
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
+
+        // LocalDateTime에서 LocalDate 추출
+        LocalDate date = dateTime.toLocalDate();
+
+        // 결과 출력
+        System.out.println("Formatted LocalDate: " + date);
+    }
+}
+이 코드는 다음과 같이 출력됩니다:
+
+yaml
+코드 복사
+Formatted LocalDate: 2024-07-02
+위의 예제에서 DateTimeFormatter를 사용하여 "yyyy-MM-dd HH:mm
+" 형식으로 정의하고 있습니다. 이 형식은 주어진 문자열의 날짜와 시간 형식에 맞추어 설정됩니다. 필요에 따라 다른 형식을 사용하여 DateTimeFormatter를 정의할 수 있습니다.
+
+
+나
+두 LocalDate 타입의 날짜 계산방법
+ChatGPT
+ChatGPT
+Java에서 LocalDate 타입을 사용하여 두 날짜 간의 계산을 수행하는 방법은 다음과 같습니다:
+
+1. 날짜 간의 차이 계산하기
+두 LocalDate 객체 간의 날짜 차이(일 수)를 계산하려면 until() 메서드를 사용합니다. 이 메서드는 ChronoUnit 열거형 상수를 이용하여 날짜 단위로 계산할 수 있습니다. 예를 들어, 두 날짜의 차이를 일 단위로 계산하려면 다음과 같이 할 수 있습니다:
+
+java
+코드 복사
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
+public class Main {
+    public static void main(String[] args) {
+        LocalDate date1 = LocalDate.of(2024, 7, 2);
+        LocalDate date2 = LocalDate.of(2024, 7, 10);
+
+        // 두 날짜 간의 차이 계산 (일 단위)
+        long daysDiff = date1.until(date2, ChronoUnit.DAYS);
+        
+        System.out.println("Days difference: " + daysDiff); // 결과: 8
+    }
+}
+2. 날짜에 일 수 더하기 또는 빼기
+특정 LocalDate에 일 수를 더하거나 빼려면 plusDays() 또는 minusDays() 메서드를 사용합니다. 예를 들어, 특정 날짜에 5일을 더하려면 다음과 같이 할 수 있습니다:
+
+java
+코드 복사
+import java.time.LocalDate;
+
+public class Main {
+    public static void main(String[] args) {
+        LocalDate date = LocalDate.of(2024, 7, 2);
+        
+        // 일 수 더하기
+        LocalDate newDate = date.plusDays(5);
+        
+        System.out.println("New date after adding days: " + newDate); // 결과: 2024-07-07
+    }
+}
+이와 유사하게 일 수를 뺄 수도 있습니다:
+
+java
+코드 복사
+// 일 수 빼기
+LocalDate newDate = date.minusDays(5);
+3. 다른 시간 단위(월, 연 등)의 계산
+LocalDate는 날짜 정보만을 포함하므로, 월이나 연 단위의 계산이 필요할 경우 LocalDate에서 LocalDateTime 또는 LocalDateTime에서 YearMonth, MonthDay 등으로 변환 후 계산을 해야합니다.
+
+
+
